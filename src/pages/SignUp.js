@@ -27,11 +27,11 @@ const SignUp = () => {
   
  
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-gray-100 overflow-hidden">
+    <div className="w-full h-screen flex justify-center items-center bg-gray-50 overflow-hidden">
       {!isLoading ? (
  <div className="p-5 max-w-md w-full md:w-[400px] bg-white shadow-md rounded-lg overflow-hidden">
  <h1 className="font-bold text-lg text-badge text-center">Register</h1>
- <p className="text-primary text-center">Register as an Admin</p>
+ <p className="text-primary text-center">Register As Admin</p>
  <form
    className="mt-5 flex-col flex justify-center items-center"
    onSubmit={handleSubmit}
@@ -75,7 +75,7 @@ const SignUp = () => {
 
    <p className="mt-3">
      Already Registered?{" "}
-     <Link to="/signin">
+     <Link to="/siginin">
        <span className="text-badge">Sign In</span>
      </Link>
    </p>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logoBlue.svg";
 import styles from "../styles/ActiveLink.module.css";
 
 
@@ -38,16 +38,16 @@ const activeLink = ({isActive}) =>
               <NavLink to="/" className={activeLink}>Blog</NavLink>
             </li>
             <li>
-              <NavLink to="/author">Author</NavLink>
+              <NavLink to="/author" className={activeLink}>Author</NavLink>
             </li>
             <li>
-              <NavLink to="/contact">Contact</NavLink>
+              <NavLink to="/contact" className={activeLink}>Contact</NavLink>
             </li>
             <li>
-              <NavLink to="/siginin">SignIn</NavLink>
+              <NavLink to="/siginin" className={activeLink}>SignIn</NavLink>
             </li>
             <li>
-              <NavLink to="/signup">SignUp</NavLink>
+              <NavLink to="/signup" className={activeLink}>SignUp</NavLink>
             </li>
           </ul>
         </nav>
