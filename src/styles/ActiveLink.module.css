@@ -1,0 +1,8 @@
+.activeLink {
+    font-weight: bold;
+    border-bottom: 2px solid #4B6BFB;
+}
+.pointerColor:hover {
+    color:#4B6BFB;
+    transition: ease-in-out;
+}
