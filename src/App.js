@@ -6,13 +6,13 @@ import Author from './pages/Author'
 import Contact from './pages/Contact'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import Reset from './pages/Reset';
+import Admin from "./pages/Admin";
 import Error404 from './pages/Error404'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 
 
 function App() {
@@ -26,8 +26,10 @@ function App() {
   <Route path='/post' element={<Posts/>} />
   <Route path='/author' element={<Author />}/>
   <Route path='/contact' element={<Contact/>}/>
-  <Route path='/siginin' element={<SignIn/>}/>
+  <Route path='/signin' element={<SignIn/>}/>
   <Route path='/signup' element={<SignUp/>}/>
+  <Route path='/reset' element={<Reset/>}/>
+  <Route path='/jiggy' element={<Admin/>}/>
   <Route path='*' element={<Error404/>}/>
 </Routes>
 <Footer/>

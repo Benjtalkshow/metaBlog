@@ -1,53 +1,87 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import logo from "../assets/logoBlue.svg";
 import styles from "../styles/ActiveLink.module.css";
-
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [hamburger, setHamburger] = useState(false);
+  const navigate = useNavigate();
 
   const handleHamburger = () => {
     setHamburger(!hamburger);
+    if (!hamburger) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "scroll";
+    }
   };
-const stopPropagation = (e) => {
+  const stopPropagation = (e) => {
     e.stopPropagation();
-}
+  };
 
-const activeLink = ({isActive}) => 
-(isActive ? `${styles.activeLink}` : "");
+  const activeLink = ({ isActive }) => (isActive ? `${styles.activeLink}` : "");
 
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("Successfully Logged Out!!");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   return (
     <>
       <header className="header py-3 px-3 flex justify-between items-center w-full shadow">
         <Link to="/">
           <div className="logo flex gap-x-2">
-            <img src={logo} alt="logo" />
-            <h1 className="text-black">
+            <img src={logo} alt="logo" className="w-5 md:w-10" />
+            <h1 className="text-black text-sm md:text-md">
               Meta
-              <span className="text-black font-extrabold text-xl">Blog</span>
+              <span className="text-black font-extrabold text-md md:text-xl">
+                Blog
+              </span>
             </h1>
           </div>
         </Link>
         <nav className="navbar hidden md:flex">
           <ul className="flex gap-x-8 text-primary">
             <li>
-              <NavLink to="/" className={activeLink}>Blog</NavLink>
+              <NavLink to="/" className={activeLink}>
+                Blog
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/author" className={activeLink}>Author</NavLink>
+              <NavLink to="/author" className={activeLink}>
+                Author
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/contact" className={activeLink}>Contact</NavLink>
+              <NavLink to="/contact" className={activeLink}>
+                Contact
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/siginin" className={activeLink}>SignIn</NavLink>
+              <NavLink to="/signin" className={activeLink}>
+                SignIn
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/signup" className={activeLink}>SignUp</NavLink>
+              <NavLink to="/signup" className={activeLink}>
+                SignUp
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/" onClick={logOut}>
+                LogOut
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -76,8 +110,9 @@ const activeLink = ({isActive}) =>
         )}
       </header>
       {/* sidebar | mobile view */}
-      <div onClick={handleHamburger}
-        className={`overshadow w-full h-screen bg-black bg-opacity-20 block md:hidden transform ${
+      <div
+        onClick={handleHamburger}
+        className={`overshadow w-full h-[100%] absolute bg-black bg-opacity-60 block md:hidden transform ${
           hamburger ? "translate-x-0" : "-translate-x-full"
         } 
         transition-transform duration-300 ease-in-out`}
@@ -86,11 +121,14 @@ const activeLink = ({isActive}) =>
           className={`navbav w-[250px] md:w-auto transform ${
             hamburger ? "translate-x-0" : "-translate-x-full"
           } 
-        transition-transform duration-300 ease-in-out shadow h-screen flex md:hidden flex-col items-center p-8 border-t-2
+        transition-transform duration-300 ease-in-out shadow h-[100%] flex md:hidden flex-col items-center p-8 border-t-2
         absolute bg-white`}
         >
           <div className="flex gap-x-8 items-center">
-            <div className="input-holder bg-slate-100 flex items-center p-2 rounded-lg w-48 md:w-64 overflow-hidden" onClick={stopPropagation}>
+            <div
+              className="input-holder bg-slate-100 flex items-center p-2 rounded-lg w-48 md:w-64 overflow-hidden"
+              onClick={stopPropagation}
+            >
               <input
                 type="text"
                 placeholder="Search"
@@ -109,10 +147,15 @@ const activeLink = ({isActive}) =>
               <NavLink to="/contact">Contact</NavLink>
             </li>
             <li>
-              <NavLink to="/siginin">SignIn</NavLink>
+              <NavLink to="/signin">SignIn</NavLink>
             </li>
             <li>
               <NavLink to="/signup">SignUp</NavLink>
+            </li>
+            <li>
+              <NavLink to="/" onClick={logOut}>
+                LogOut
+              </NavLink>
             </li>
           </ul>
         </nav>
