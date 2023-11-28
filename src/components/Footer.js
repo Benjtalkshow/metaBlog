@@ -28,7 +28,7 @@ const Footer = () => {
     { name: "Terms of Use", path: "" },
     { name: "|", path: "" },
     { name: "Privacy Policy", path: "" },
-    { name: "|", path: "" },
+    { name: "|", path: "/signin" },
     { name: "Cookie Policy", path: "" },
   ];
 
