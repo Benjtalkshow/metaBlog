@@ -4,14 +4,22 @@ import { FaSearch, FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import logo from "../assets/logoBlue.svg";
 import styles from "../styles/ActiveLink.module.css";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../redux/slice/authSlice";
+import ShowOnLogin, { ShowOnLogout } from "./hidelinks/hiddenLinks";
+
 
 const Header = () => {
   const [hamburger, setHamburger] = useState(false);
-  const navigate = useNavigate();
+  const [uName, setuName] = useState('');
+  const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+// TO HANDLE HAMBURGER MENU
   const handleHamburger = () => {
     setHamburger(!hamburger);
     if (!hamburger) {
@@ -23,9 +31,10 @@ const Header = () => {
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
-
+// TO SET ACTIVE PAGE LINK AND SELECT STATE
   const activeLink = ({ isActive }) => (isActive ? `${styles.activeLink}` : "");
 
+  // TO SET LOGGOUT
   const logOut = () => {
     signOut(auth)
       .then(() => {
@@ -36,6 +45,25 @@ const Header = () => {
         toast.error(error.message);
       });
   };
+
+  // To track the state of a logged in user
+  useEffect(()=> {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const username = user.email.split('@')[0];
+        const capitalizeUsername = username.charAt(0).toUpperCase() + username.slice(1);
+        setuName(capitalizeUsername)
+        dispatch(SET_ACTIVE_USER({
+          email: user.email,
+          uName: capitalizeUsername,
+          userId:user.uid,
+        }))
+      } else {
+        setuName('')
+        dispatch(REMOVE_ACTIVE_USER())
+      }
+    });
+  },[uName, dispatch])
 
   return (
     <>
@@ -63,26 +91,32 @@ const Header = () => {
                 Author
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/contact" className={activeLink}>
-                Contact
-              </NavLink>
-            </li>
+            <ShowOnLogout>
             <li>
               <NavLink to="/signin" className={activeLink}>
                 SignIn
               </NavLink>
             </li>
+            </ShowOnLogout>
             <li>
               <NavLink to="/signup" className={activeLink}>
                 SignUp
               </NavLink>
             </li>
+            <ShowOnLogin>
+            <li>
+              <NavLink className={`text-badge`}>
+              {`Hi, ${uName}`}
+              </NavLink>
+            </li>
+            </ShowOnLogin>
+            <ShowOnLogin>
             <li>
               <NavLink to="/" onClick={logOut}>
                 LogOut
               </NavLink>
             </li>
+            </ShowOnLogin>
           </ul>
         </nav>
         <div className="gap-x-8 items-center hidden md:flex">

@@ -1,6 +1,7 @@
 .activeLink {
     font-weight: bold;
     border-bottom: 3px solid #4B6BFB;
+    padding: 5px 0px;
 }
 .pointerColor:hover {
     color:#4B6BFB;

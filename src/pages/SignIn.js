@@ -16,7 +16,6 @@ const SignIn = () => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // const user = userCredential.user;
         setTimeout(() => {
           setIsLoading(false);
         }, 2000);

@@ -2,30 +2,39 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import { auth } from "../firebase/firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const Reset = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
-    sendPasswordResetEmail(auth, email)
-  .then(() => {
-    // Password reset email sent!
-    // ..
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+    await sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
+        toast.success("Password reset link sent!!");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
+        if(error.code === "auth/invalid-email"){
+          toast.error("Not a valid email!!");
+        } else {
+          toast.error(error.code, errorMessage);
+        }
+      });
   };
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-50 overflow-hidden">
-      {isLoading && <Loader/>}
+      {isLoading && <Loader />}
       <div className="p-5 max-w-md w-full md:w-[400px] bg-white shadow-md rounded-lg overflow-hidden">
         <h1 className="font-bold text-lg text-badge text-center">
           Reset Password
