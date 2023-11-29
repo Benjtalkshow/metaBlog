@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../redux/slice/authSlice";
-import ShowOnLogin, { ShowOnLogout } from "./hidelinks/hiddenLinks";
+import ShowOnLogin from "./hidelinks/hiddenLinks";
 
 const Header = () => {
   const [hamburger, setHamburger] = useState(false);
@@ -134,7 +134,7 @@ const Header = () => {
       {/* sidebar | mobile view */}
       <div
         onClick={handleHamburger}
-        className={`overshadow w-full h-[100%] absolute bg-black bg-opacity-60 block md:hidden transform ${
+        className={`overshadow w-full h-[100%] z-50 absolute bg-black bg-opacity-60 block md:hidden transform ${
           hamburger ? "translate-x-0" : "-translate-x-full"
         } 
         transition-transform duration-300 ease-in-out`}
@@ -168,17 +168,18 @@ const Header = () => {
             <li>
               <NavLink to="/contact">Contact</NavLink>
             </li>
-            <li>
-              <NavLink to="/signin">SignIn</NavLink>
-            </li>
-            <li>
-              <NavLink to="/signup">SignUp</NavLink>
-            </li>
-            <li>
-              <NavLink to="/" onClick={logOut}>
-                LogOut
-              </NavLink>
-            </li>
+            <ShowOnLogin>
+              <li>
+                <NavLink className={`text-badge`}>{`Hi, ${uName}`}</NavLink>
+              </li>
+            </ShowOnLogin>
+            <ShowOnLogin>
+              <li>
+                <NavLink to="/" onClick={logOut}>
+                  LogOut
+                </NavLink>
+              </li>
+            </ShowOnLogin>
           </ul>
         </nav>
       </div>
