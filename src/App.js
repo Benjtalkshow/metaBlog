@@ -14,6 +14,10 @@ import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PrivateRoute } from "./privateroute/PrivateRoute";
+import AOS from "aos";
+import "aos/dist/aos.css"; 
+AOS.init();
+
 
 function App() {
   return (
@@ -23,7 +27,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Blog />} />
-          <Route path="/post" element={<Posts />} />
+          <Route path="/post/" element={<Posts />} />
           <Route path="/author" element={<Author />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />

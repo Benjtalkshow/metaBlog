@@ -7,8 +7,10 @@ import image6 from "../assets/image6.png";
 import image7 from "../assets/image7.png";
 import image8 from "../assets/image8.png";
 import image9 from "../assets/image9.png";
+import placeholder from "../assets/thumbnail.svg";
 
 
+export const thumbnail  = placeholder;
 
 export const cardData = [
     {

@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 const Advert = () => {
+
   return (
-<section className='flex justify-center my-5 md:my-10'>
-  <div className='p-2 bg-gray-100 w-full md:w-1/2 rounded-none md:rounded-lg'>
+<section className='flex justify-center my-5 md:my-10 px-2 md:px-0'>
+  <div className='p-2 bg-gray-100 w-full md:w-1/2 rounded-lg'>
     <p className='text-gray-500 text-center'>Advertisement</p>
     <p className='text-center font-semibold'>You can place your ads</p>
     <p className='text-gray-500 text-center'>750x100</p>

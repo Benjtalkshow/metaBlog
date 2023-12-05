@@ -9,6 +9,7 @@ const Blog = () => {
       <Sliders />
       <Advert />
       <CardContainer />
+      <Advert />
     </div>
   );
 };
