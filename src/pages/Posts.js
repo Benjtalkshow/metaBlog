@@ -1,53 +1,84 @@
-import React from "react";
-// import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Tag from "../components/Tag";
 import ShortInfo from "../components/ShortInfo";
-import postImage from "../assets/post.png";
-import postImage2 from "../assets/post1.png";
 import Advert from "../components/Advert";
-
-const post = `Traveling is an enriching experience that opens up new horizons,
-exposes us to different cultures, and creates memories that last a
-lifetime. However, traveling can also be stressful and overwhelming,
-especially if you don't plan and prepare adequately. In this blog
-article, we'll explore tips and tricks for a memorable journey and
-how to make the most of your travels. One of the most rewarding
-aspects of traveling is immersing yourself in the local culture and
-customs. This includes trying local cuisine, attending cultural
-events and festivals, and interacting with locals. Learning a few
-phrases in the local language can also go a long way in making
-connections and showing respect.`;
+import { useSelector } from "react-redux";
+import { selectPosts } from "../redux/slice/authSlice";
+import { formattedDate, thumbnail } from "../data/data";
 
 const Posts = () => {
-  // const { id } = useParams();
+  const { id } = useParams();
+  const allPosts = useSelector(selectPosts);
+  const [post, setPost] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const posts = allPosts.find((post) => post.id === id);
+        setPost(posts);
+        console.log(posts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [allPosts, id]);
+
   return (
     <div className="w-full">
       <Advert />
       <div className="mt-10 flex justify-center items-center flex-col px-2 md:px-0">
-        <div className="px-2">
-          <Tag
-            textColor="text-white"
-            category="Technology"
-            labelClassName="bg-badge"
-          />
-          <h1 className="title font-bold text-black text-xl md:text-3xl mt-2 md:mt-5">
-            The Impact of Technology on the Workplace:
-            <br /> How Technology is Changing
-          </h1>
-          <ShortInfo textColorClass="text-gray-500" />
-        </div>
-        <div className="my-10">
-          <img src={postImage} alt="post pic" width={700} height={600} />
-        </div>
-        <div className="">
-        <p className="text-justify px-2 md:px-0 md:whitespace-pre-line">{post}</p>
-        </div>
-        <div className="my-10">
-          <img src={postImage2} alt="post pic" width={700} height={600} />
-        </div>
-        <div className="">
-        <p className="text-justify px-2 md:px-0 md:whitespace-pre-line">{post}</p>
-        </div>
+        {post ? (
+          <>
+            <div className="px-2">
+              <Tag
+                category={post.category}
+                labelClassName="bg-badge"
+                textColor="text-white"
+              />
+              <h1 className="title font-bold text-black text-xl md:text-3xl mt-2 md:mt-5">
+                {post.title}
+                <p className="text-badge">{id}</p>
+              </h1>
+              <ShortInfo textColorClass="text-gray-500"
+              admin={"Admin"}
+              formattedDate={`Posted on ${post.timestamp ? formattedDate(post.timestamp) : 'Unknown date'}`}
+              />
+              {console.log(post)}
+            </div>
+            <div className="my-10">
+              <img
+                src={post.file || thumbnail}
+                alt="post pic"
+                width={700}
+                height={600}
+              />
+            </div>
+            <div className="">
+              <p className="text-justify px-2 md:px-0 md:whitespace-pre-line">
+                {post.content}
+              </p>
+            </div>
+            <div className="my-10">
+              <img
+                src={post.file || thumbnail}
+                alt="post pic"
+                width={700}
+                height={600}
+              />
+            </div>
+            <div className="">
+              <p className="text-justify px-2 md:px-0 md:whitespace-pre-line">
+                {post.content}
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <h1 className="text-badge text-center">No Post Available</h1>
+          </>
+        )}
       </div>
       <Advert />
     </div>

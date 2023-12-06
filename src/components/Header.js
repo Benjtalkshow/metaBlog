@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../redux/slice/authSlice";
 import ShowOnLogin from "./hidelinks/hiddenLinks";
+import { PrivateLink } from "../privateroute/PrivateRoute";
 
 const Header = () => {
   const [hamburger, setHamburger] = useState(false);
@@ -98,6 +99,13 @@ const Header = () => {
                 <NavLink className={`text-badge`}>{`Hi, ${uName}`}</NavLink>
               </li>
             </ShowOnLogin>
+            <PrivateLink>
+            <li>
+                <NavLink to="/admin" className={activeLink}>
+                  Admin
+                </NavLink>
+              </li>
+            </PrivateLink>
             <ShowOnLogin>
               <li>
                 <NavLink to="/" onClick={logOut}>
@@ -173,6 +181,13 @@ const Header = () => {
                 <NavLink className={`text-badge`}>{`Hi, ${uName}`}</NavLink>
               </li>
             </ShowOnLogin>
+            <PrivateLink>
+            <li>
+                <NavLink to="/admin" className={activeLink}>
+                  Admin
+                </NavLink>
+              </li>
+            </PrivateLink>
             <ShowOnLogin>
               <li>
                 <NavLink to="/" onClick={logOut}>

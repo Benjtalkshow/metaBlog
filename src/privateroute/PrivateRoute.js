@@ -27,7 +27,7 @@ export const PrivateRoute = ({ children }) => {
 export const PrivateLink = ({ children }) => {
   const userEmail = useSelector(selectEmail);
 
-  if (userEmail === "rama@gmail.com") {
+  if (userEmail === "chinedubenj@gmail.com") {
     return children;
   } else {
     return null;

@@ -1,14 +1,14 @@
 import React from "react";
 import Sliders from "../components/Sliders";
 import Advert from "../components/Advert";
-import CardContainer from "../components/CardContainer";
+import Card from "../components/Card";
 
 const Blog = () => {
   return (
     <div>
       <Sliders />
       <Advert />
-      <CardContainer />
+      <Card />
       <Advert />
     </div>
   );

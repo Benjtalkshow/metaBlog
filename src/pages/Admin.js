@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { useSelector } from "react-redux";
 import { selectUname, selectUserId } from "../redux/slice/authSlice";
@@ -34,6 +34,7 @@ const Admin = () => {
         content,
         file,
         author: { name: isUserName || "Admin", id: isUserId },
+        timestamp: serverTimestamp(),
       });
       setTitle("");
       setCategory("");

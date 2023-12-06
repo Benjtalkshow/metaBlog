@@ -27,7 +27,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Blog />} />
-          <Route path="/post/" element={<Posts />} />
+          <Route path="/post/:id" element={<Posts />} />
           <Route path="/author" element={<Author />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />
@@ -36,7 +36,7 @@ function App() {
           <Route path="*" element={<Error404 />} />
           {/* Admin */}
           <Route
-            path="/jiggy/*"
+            path="/admin/*"
             element={
               <PrivateRoute>
                 <Admin />

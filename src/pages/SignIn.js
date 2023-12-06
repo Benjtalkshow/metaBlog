@@ -20,7 +20,7 @@ const SignIn = () => {
           setIsLoading(false);
         }, 2000);
         toast.success("LogIn Successful!!");
-        navigate("/jiggy");
+        navigate("/admin");
       })
       .catch((error) => {
         setTimeout(() => {
