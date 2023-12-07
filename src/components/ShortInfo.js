@@ -6,7 +6,7 @@ const ShortInfo = ({admin, formattedDate, textColorClass = "text-white" }) => {
   return (
     <div className="shortInfo flex items-center mt-2 md:mt-5">
       <img src={profile} alt="profile" className="w-6 h-6 mr-2" />
-      <p className={`${textColorClass} text-sm md:text-base`}>
+      <p className={`${textColorClass} text-xs md:sm`}>
         {admin}
       </p>
       <p className={`${textColorClass} ml-2 md:ml-5 text-xs md:text-sm`}>
