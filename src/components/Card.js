@@ -49,7 +49,7 @@ const Card = () => {
         <>
           {post ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 justify-center w-[90%]">
-              {post.map((post) => (
+              {post.reverse().map((post) => (
                 <Link to={`/post/${post.id}`} key={post.id}>
                   <div
                     className="card bg-white p-2 rounded-lg shadow-md border-2 border-gray-300"

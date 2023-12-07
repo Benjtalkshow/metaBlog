@@ -11,6 +11,7 @@ import { db } from "../firebase/firebase";
 import { formattedDate, thumbnail } from "../data/data";
 import { Link } from "react-router-dom";
 
+
 const Sliders = () => {
   const [slide, setSlide] = useState([]);
   const timer = 1000 * 5;
@@ -43,7 +44,7 @@ const Sliders = () => {
         autoplay={{ delay: timer }}
         className="mySwiper"
       >
-        {slide.slice(0, 5).map((slideX) => (
+        {slide.slice(0, 5).reverse().map((slideX) => (
           <SwiperSlide key={slideX.id}>
             <section
               className="flex items-end p-2 sm:p-5 md:p-10 w-full h-[400px] md:h-[600px] relative overflow-hidden"
@@ -55,7 +56,7 @@ const Sliders = () => {
               }}
             >
               <div className="absolute inset-0 bg-black opacity-40"></div>
-              <div className="z-10 absolute w-full md:w-1/2">
+              <div className="z-10 absolute w-full md:w-1/2 mb-5 md:mb-0">
                 <Tag
                   category={slideX.category}
                   labelClassName="bg-badge"
