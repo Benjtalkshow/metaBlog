@@ -3,7 +3,7 @@ import React from "react";
 const Tag = ({ category, labelClassName, textColor }) => {
   return (
     <div>
-      <label className={`tag italic p-2 ${textColor} rounded-lg ${labelClassName}`}>
+      <label className={`tag text-xs p-2 ${textColor} ${labelClassName}`}>
         {category}
       </label>
     </div>
