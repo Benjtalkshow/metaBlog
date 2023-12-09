@@ -7,6 +7,7 @@ import { Spinner, formattedDate, thumbnail } from "../data/data";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import RecentPost from "../components/RecentPost";
+import Comment from "../components/Comment";
 
 const Posts = () => {
   const { postId } = useParams();
@@ -117,6 +118,7 @@ const Posts = () => {
               )}
             </>
           )}
+          <Comment />
         </div>
 
         {/* Recent post */}

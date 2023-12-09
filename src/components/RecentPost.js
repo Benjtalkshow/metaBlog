@@ -1,27 +1,33 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ShortInfo from "./ShortInfo";
 import { formattedDate, thumbnail } from "../data/data";
 
+
 const RecentPost = ({ recentPost, postId }) => {
   const navigate = useNavigate();
+
   const handleNavigate = (postIdx) => {
-    const newPath = window.location.pathname.includes(`/post/${postId}`);
-    navigate(newPath ? `/post/${postIdx}` : `/post/${postIdx}`);
-    window.history.pushState(null, "", postIdx);
-    window.location.reload();
+    const oldPath = window.location.pathname.includes(`/post/${postId}`);
+    const newPath = postIdx;
+    navigate(oldPath ? `/post/${newPath}` : `/post/${newPath}`);
+
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.history.pushState(null, "", newPath);
+      window.location.reload();
+    }, 0);
   };
 
   return (
-    <div className="recentPost p-5 w-full md:w-1/3 mt-5 md:mt-10 shadow-md bg-gray-50">
-      <h1 className="mb-5 text-badge">RECENT POST</h1>
+    <div className="recentPost p-5 w-full md:w-1/3 mt-5 md:mt-10 md:shadow-md bg-gray-50">
+      <h1 className="mb-5 text-white bg-badge inline-block p-2">RECENT POST</h1>
       {recentPost ? (
         <>
           {recentPost
             .slice(0, 10)
             .reverse()
             .map((recent) => (
-
               <div
                 key={recent.id}
                 onClick={() => handleNavigate(recent.id)}
@@ -32,7 +38,6 @@ const RecentPost = ({ recentPost, postId }) => {
                     <h1 className="hover:text-badge">{recent.title}</h1>
                     <ShortInfo
                       textColorClass="text-gray-500"
-                      admin={recent ? recent.author?.name : "Admin"}
                       formattedDate={`Posted on ${
                         recent.timestamp
                           ? formattedDate(recent.timestamp)
