@@ -4,7 +4,7 @@ import profile from "../assets/profile.svg";
 const ShortInfo = ({admin, formattedDate, textColorClass = "text-white" }) => {
 
   return (
-    <div className="shortInfo flex items-center mt-2 md:mt-5">
+    <div className="shortInfo flex items-center">
       <img src={profile} alt="profile" className="w-6 h-6 mr-2" />
       <p className={`${textColorClass} text-xs md:sm`}>
         {admin}

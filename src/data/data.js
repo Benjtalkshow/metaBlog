@@ -1,10 +1,12 @@
 import React from "react";
 import placeholder from "../assets/thumbnail.svg";
 import { TailSpin } from "react-loader-spinner";
+import banner  from "../assets/banner.png";
 
 
 //image thumbnail
 export const thumbnail  = placeholder;
+export const advert = banner;
 
 //format date appropriately
 export const formattedDate = (newDateFormat) => {

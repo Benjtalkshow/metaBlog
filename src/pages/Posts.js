@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Tag from "../components/Tag";
 import ShortInfo from "../components/ShortInfo";
 import Advert from "../components/Advert";
 import { Spinner, formattedDate, thumbnail } from "../data/data";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import RecentPost from "../components/RecentPost";
 
 const Posts = () => {
   const { postId } = useParams();
   const [post, setPost] = useState([]);
-  const [recommended, setRecommended] = useState([]);
+  const [recentPost, setRecentPost] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // fetching a document based on id
     const fetchPost = async () => {
       try {
         const postRef = doc(db, "posts", postId);
@@ -42,15 +44,16 @@ const Posts = () => {
   }, []);
 
   useEffect(() => {
+    // fetching all the document from post collection
     const fetchData = async () => {
       try {
         const collectionRef = collection(db, "posts");
         const data = await getDocs(collectionRef);
-        const recommend = data.docs.map((doc) => ({
+        const recent = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-        setRecommended(recommend);
+        setRecentPost(recent);
       } catch (error) {
         console.error("Error fetching data from Firebase:", error);
       }
@@ -116,33 +119,8 @@ const Posts = () => {
           )}
         </div>
 
-        {/* Recommended div with fixed position */}
-        <div className="recommended p-5 w-full md:w-1/3 mt-5 md:mt-10 shadow-md bg-gray-50">
-          <h1 className="mb-5 text-badge text-xl">Recommended for you</h1>
-          {recommended ? (
-            <>
-              {recommended
-                .slice(0, 10)
-                .reverse()
-                .map((recommend) => (
-                  <Link key={recommend.id} to={
-                    window.location.pathname.includes(`/post/${postId}`)
-                      ? `/post/${recommend.id}`
-                      : `/post/${recommend.id}`
-                  }
-                  onClick={() => window.location.reload()}>
-                    <h1
-                      className="text-lg underline hover:text-badge mb-2"
-                    >
-                      {">"} {recommend.title}
-                    </h1>
-                  </Link>
-                ))}
-            </>
-          ) : (
-            <><p className="text-center text-badge">No recommended post</p></>
-          )}
-        </div>
+        {/* Recent post */}
+        <RecentPost recentPost={recentPost} postId={postId} />
       </div>
       <Advert />
     </div>
