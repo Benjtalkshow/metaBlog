@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../redux/slice/authSlice";
+import { selectIsAdmin, selectIsLoggedIn } from "../../redux/slice/authSlice";
+
 
 const ShowOnLogin = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  if (isLoggedIn) {
+  const isAdmin = useSelector(selectIsAdmin);
+  if (isLoggedIn && isAdmin) {
     return children;
   }
   return null;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Tag from "../components/Tag";
 import ShortInfo from "../components/ShortInfo";
 import Advert from "../components/Advert";
@@ -11,6 +11,7 @@ import Comment from "../components/Comment";
 
 const Posts = () => {
   const { postId } = useParams();
+  const navigate = useNavigate();
   const [post, setPost] = useState([]);
   const [recentPost, setRecentPost] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,12 +26,14 @@ const Posts = () => {
           setPost({ id: postDoc.id, ...postDoc.data() });
         } else {
           console.log("No such document!");
+          navigate('/')
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);
         }
       } catch (error) {
         console.error("Error fetching document from Firebase:", error);
+        navigate('/*')
         setTimeout(() => {
           setIsLoading(false);
         }, 2000);
@@ -118,7 +121,7 @@ const Posts = () => {
               )}
             </>
           )}
-          <Comment />
+          <Comment postId={postId} />
         </div>
 
         {/* Recent post */}

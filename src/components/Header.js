@@ -53,12 +53,14 @@ const Header = () => {
         const username = user.email.split("@")[0];
         const capitalizeUsername =
           username.charAt(0).toUpperCase() + username.slice(1);
+        const isAdmin = user.email === "chinedubenj@gmail.com";
         setuName(capitalizeUsername);
         dispatch(
           SET_ACTIVE_USER({
             email: user.email,
             uName: capitalizeUsername,
             userId: user.uid,
+            isAdmin: isAdmin,
           })
         );
       } else {
@@ -100,7 +102,7 @@ const Header = () => {
               </li>
             </ShowOnLogin>
             <PrivateLink>
-            <li>
+              <li>
                 <NavLink to="/admin" className={activeLink}>
                   Admin
                 </NavLink>
@@ -182,7 +184,7 @@ const Header = () => {
               </li>
             </ShowOnLogin>
             <PrivateLink>
-            <li>
+              <li>
                 <NavLink to="/admin" className={activeLink}>
                   Admin
                 </NavLink>
