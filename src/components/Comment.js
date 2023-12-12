@@ -153,7 +153,6 @@ const Comment = ({ postId }) => {
                   width="40"
                   alt="Profile"
                 />
-                {isLogin? console.log(commentUser) : "NO USER"}
                 <textarea
                   className="ml-1 shadow-none textarea outline-none border-gray-300 border-2 w-[80%] focus:ring"
                   value={commentText}
