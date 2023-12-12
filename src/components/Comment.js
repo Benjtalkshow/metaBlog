@@ -16,6 +16,7 @@ import {
 import { formattedDate, thumbnail } from "../data/data";
 import { useSelector } from "react-redux";
 
+
 const Comment = ({ postId }) => {
   const isLogin = useSelector(selectIsLoggedIn)
   const provider = new GoogleAuthProvider();
@@ -87,6 +88,8 @@ const Comment = ({ postId }) => {
     fetchComment();
   }, []);
 
+  
+
   const cancelComment = () => {
     if (commentText.trim() === "") {
       toast.warning("The comment is empty.");
@@ -146,7 +149,6 @@ const Comment = ({ postId }) => {
               <div className="flex flex-row items-start">
                 <img
                   className="commetImage rounded-full"
-                  // src="https://i.imgur.com/RpzrMR2.jpg"
                   src={isLogin && commentUser?.photoURL ? commentUser.photoURL : 'https://i.imgur.com/RpzrMR2.jpg'}
                   width="40"
                   alt="Profile"
