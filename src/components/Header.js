@@ -72,7 +72,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="header py-3 px-3 flex justify-between items-center w-full shadow">
+      <header className="header py-5 px-3 flex justify-between items-center w-full shadow">
         <Link to="/">
           <div className="logo flex gap-x-2">
             <img src={logo} alt="logo" className="w-5 md:w-10" />

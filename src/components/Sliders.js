@@ -12,6 +12,7 @@ import { formattedDate, thumbnail } from "../data/data";
 import { Link } from "react-router-dom";
 
 
+
 const Sliders = () => {
   const [slide, setSlide] = useState([]);
   const timer = 1000 * 5;
@@ -69,7 +70,7 @@ const Sliders = () => {
                 </Link>
                 <ShortInfo
                   admin={slideX.author.name || "Admin"}
-                  formattedDate={`Posted on ${
+                  formattedDate={`${
                     slideX.timestamp
                       ? formattedDate(slideX.timestamp)
                       : "Unknown date"

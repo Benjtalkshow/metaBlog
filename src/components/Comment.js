@@ -3,8 +3,6 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
 import { toast } from "react-toastify";
 import { IoTimeOutline } from "react-icons/io5";
-import { SlLike } from "react-icons/sl";
-import { selectIsLoggedIn } from "../redux/slice/authSlice";
 
 import {
   collection,
@@ -13,16 +11,23 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { formattedDate, thumbnail } from "../data/data";
-import { useSelector } from "react-redux";
-
+import { thumbnail } from "../data/data";
 
 const Comment = ({ postId }) => {
-  const isLogin = useSelector(selectIsLoggedIn)
   const provider = new GoogleAuthProvider();
   const [commentText, setCommentText] = useState("");
   const [comment, setComment] = useState([]);
-  const [commentUser, setCommentUser] =  useState(null);
+
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp.seconds * 1000);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
+  };
 
   async function addCommentToFirestore(user, commentText) {
     const commentsRef = collection(doc(db, "posts", postId), "comments");
@@ -41,6 +46,10 @@ const Comment = ({ postId }) => {
       await setDoc(commentRef, commentData);
       setCommentText("");
       console.log("Comment added successfully");
+      setComment((prevComments) => [
+        ...prevComments,
+        { id: commentId, ...commentData },
+      ]);
     } catch (error) {
       console.error("Error adding comment to Firestore:", error);
     }
@@ -55,10 +64,8 @@ const Comment = ({ postId }) => {
 
       const result = await signInWithPopup(auth, provider);
       const userDetails = result.user;
-      setCommentUser(userDetails)
       toast.info("Comment posted!");
       await addCommentToFirestore(userDetails, commentText);
-      console.log(userDetails);
     } catch (error) {
       toast.error(error.message);
     }
@@ -88,8 +95,6 @@ const Comment = ({ postId }) => {
     fetchComment();
   }, []);
 
-  
-
   const cancelComment = () => {
     if (commentText.trim() === "") {
       toast.warning("The comment is empty.");
@@ -106,50 +111,47 @@ const Comment = ({ postId }) => {
             <h1 className="">COMMENT</h1>
           </div>
           <div className="flex flex-col comment-section">
-            {comment.map((eachComment) => (
-              <div className="userComment" key={eachComment.id}>
-                <div className="bg-white p-2">
-                  <div className="flex flex-row items-center">
-                    <img
-                      className="rounded-full"
-                      src={eachComment.userPhotoURL || thumbnail}
-                      width="40"
-                      alt="Profile"
-                    />
-                    <div className="flex flex-col justify-start ml-2">
-                      <span className="block font-bold name text-badge">
-                        {eachComment.userName}
-                      </span>
-                      <span className="date text-black-50 flex items-center gap-2">
-                        <IoTimeOutline />
-                        {`${formattedDate(eachComment.timestamp)}`}
-                      </span>
+            {comment.length > 0 ? (
+              <>
+                {comment.map((eachComment) => (
+                  <div className="userComment" key={eachComment.id}>
+                    <div className="bg-white p-2">
+                      <div className="flex flex-row items-center">
+                        <img
+                          className="rounded-full"
+                          src={eachComment.userPhotoURL || thumbnail}
+                          width="40"
+                          alt="Profile"
+                        />
+                        <div className="flex flex-col justify-start ml-2">
+                          <span className="block font-bold name text-badge">
+                            {eachComment.userName}
+                          </span>
+                          <span className="date text-black-50 flex items-center gap-2">
+                            <IoTimeOutline />
+                            {formatTimestamp(eachComment.timestamp)}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="mt-2">
+                        <p className="comment-text">
+                          {eachComment.commentText}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <div className="mt-2">
-                    <p className="comment-text">{eachComment.commentText}</p>
-                  </div>
-                </div>
-                <div className="bg-white">
-                  <div className="flex flex-row text-sm">
-                    <div className="like p-2 cursor-pointer">
-                      <span className="ml-1 flex items-center gap-2">
-                        <SlLike />
-                        {`${eachComment.likes} Likes`}
-                      </span>
-                    </div>
-                    <div className="like p-2 cursor">
-                      <span className="ml-1">Share</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            ) : (
+              <>
+                <p className="py-2 italic">No comment available</p>
+              </>
+            )}
             <div className="bg-light p-2">
               <div className="flex flex-row items-start">
                 <img
                   className="commetImage rounded-full"
-                  src={isLogin && commentUser?.photoURL ? commentUser.photoURL : 'https://i.imgur.com/RpzrMR2.jpg'}
+                  src={"https://i.imgur.com/RpzrMR2.jpg"}
                   width="40"
                   alt="Profile"
                 />

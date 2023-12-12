@@ -76,7 +76,7 @@ const Card = () => {
                     </h2>
                     <ShortInfo
                       admin={post.author.name || "Admin"}
-                      formattedDate={`Posted on ${
+                      formattedDate={`${
                         post.timestamp
                           ? formattedDate(post.timestamp)
                           : "Unknown date"
