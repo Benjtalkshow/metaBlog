@@ -26,14 +26,14 @@ const Posts = () => {
           setPost({ id: postDoc.id, ...postDoc.data() });
         } else {
           console.log("No such document!");
-          navigate('/')
+          navigate("/");
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);
         }
       } catch (error) {
         console.error("Error fetching document from Firebase:", error);
-        navigate('/*')
+        navigate("/*");
         setTimeout(() => {
           setIsLoading(false);
         }, 2000);
@@ -69,11 +69,13 @@ const Posts = () => {
   return (
     <div className="w-full">
       <Advert />
-      <div className="flex justify-center items-center md:items-start gap-10 w-full flex-col md:flex-row">
-        <div className="post mt-10 flex justify-center items-center flex-col p-3 md:px-0 w-full md:w-[40%]">
-          {isLoading ? (
-            <Spinner />
-          ) : (
+      {isLoading ? (
+        <div className="w-full flex justify-center items-center h-screen">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="flex justify-center items-center md:items-start gap-10 w-full flex-col md:flex-row">
+          <div className="post mt-10 flex justify-center items-center flex-col p-3 md:px-0 w-full md:w-[40%]">
             <>
               {post ? (
                 <>
@@ -89,7 +91,7 @@ const Posts = () => {
                     <ShortInfo
                       textColorClass="text-gray-500"
                       admin={post ? post.author?.name : "Admin"}
-                      formattedDate={`Posted on ${
+                      formattedDate={`${
                         post.timestamp
                           ? formattedDate(post.timestamp)
                           : "Unknown date"
@@ -120,13 +122,14 @@ const Posts = () => {
                 </>
               )}
             </>
-          )}
-          <Comment postId={postId} />
-        </div>
+            {/* Removed unnecessary commented-out closing brace */}
+            <Comment postId={postId} />
+          </div>
 
-        {/* Recent post */}
-        <RecentPost recentPost={recentPost} postId={postId} />
-      </div>
+          {/* Recent post */}
+          <RecentPost recentPost={recentPost} postId={postId} />
+        </div>
+      )}
       <Advert />
     </div>
   );

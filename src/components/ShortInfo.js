@@ -1,5 +1,7 @@
 import React from "react";
 import profile from "../assets/profile.svg";
+import { IoTimeOutline } from "react-icons/io5";
+
 
 const ShortInfo = ({admin, formattedDate, textColorClass = "text-white" }) => {
 
@@ -9,9 +11,12 @@ const ShortInfo = ({admin, formattedDate, textColorClass = "text-white" }) => {
       <p className={`${textColorClass} text-xs md:sm`}>
         {admin}
       </p>
-      <p className={`${textColorClass} ml-2 md:ml-5 text-xs md:text-sm`}>
+      <div className="flex items-center ml-2">
+        <IoTimeOutline className="mr-1 text-badge"/>
+      <p className={`${textColorClass} md:ml-5 text-xs md:text-sm`}>
         {formattedDate}
       </p>
+      </div>
     </div>
   );
 };
