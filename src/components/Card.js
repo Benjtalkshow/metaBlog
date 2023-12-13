@@ -7,6 +7,7 @@ import ShortInfo from "./ShortInfo";
 import Tag from "./Tag";
 import AOS from "aos";
 import Pagination from "./pagination/Pagination";
+import FilterDropdown from "./filter/FilterDropdown";
 
 const Card = () => {
   const [post, setPost] = useState([]);
@@ -51,10 +52,11 @@ const Card = () => {
 
   return (
     <section className="mb-40 flex justify-center items-center flex-col">
-      <div className="flex justify-center mb-5 w-full">
-        <div className="w-[90%] font-bold text-lg md:text-xl">
+      <div className="flex justify-center mb-5 w-[90%]">
+        <div className="w-full font-bold text-lg md:text-xl">
           <h1 className="">Latest News</h1>
         </div>
+        <FilterDropdown/>
       </div>
       {isLoading ? (
         <>
