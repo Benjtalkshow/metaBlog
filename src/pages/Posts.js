@@ -70,7 +70,7 @@ const Posts = () => {
     <div className="w-full">
       <Advert />
       {isLoading ? (
-        <div className="w-full flex justify-center items-center h-screen">
+        <div className="w-full flex justify-center items-center h-1/5">
           <Spinner />
         </div>
       ) : (
