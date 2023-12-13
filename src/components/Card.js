@@ -6,10 +6,13 @@ import { formattedDate, Spinner, thumbnail } from "../data/data";
 import ShortInfo from "./ShortInfo";
 import Tag from "./Tag";
 import AOS from "aos";
+import Pagination from "./pagination/Pagination";
 
 const Card = () => {
   const [post, setPost] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
   const collectionRef = collection(db, "posts");
 
   useEffect(() => {
@@ -34,6 +37,18 @@ const Card = () => {
     fetchData();
   }, []);
 
+  // Define a function to handle the page change
+  const handlePageChange = (selectedPage) => {
+    setCurrentPage(selectedPage);
+  };
+
+  // Calculate the start and end index of the items to display
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Slice the post array to get only the items to display
+  const currentItems = post.slice(startIndex, endIndex);
+
   return (
     <section className="mb-40 flex justify-center items-center flex-col">
       <div className="flex justify-center mb-5 w-full">
@@ -49,7 +64,7 @@ const Card = () => {
         <>
           {post ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 justify-center w-[90%]">
-              {post.reverse().map((post) => (
+              {currentItems.reverse().map((post) => (
                 <Link to={`/post/${post.id}`} key={post.id}>
                   <div
                     className="card bg-white p-2 rounded-lg shadow-md border-2 border-gray-300"
@@ -92,6 +107,11 @@ const Card = () => {
               <p className="font-bold text-lg text-badge">No Post Available</p>
             </div>
           )}
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={post.length}
+            onPageChange={handlePageChange}
+          />
         </>
       )}
     </section>

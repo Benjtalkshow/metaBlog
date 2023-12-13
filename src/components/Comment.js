@@ -108,7 +108,7 @@ const Comment = ({ postId }) => {
       <div className="w-full flex justify-center">
         <div className="w-full">
           <div className="bg-badge text-white p-2 inline-block">
-            <h1 className="">COMMENT</h1>
+          <h1 className="">COMMENT ({comment.length})</h1>
           </div>
           <div className="flex flex-col comment-section">
             {comment.length > 0 ? (

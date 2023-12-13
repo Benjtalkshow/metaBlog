@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logoBlue.svg";
 import { toast } from "react-toastify";
 
-
 const Footer = () => {
   const quickLinks = [
     { name: "Home", path: "/" },
@@ -23,7 +22,6 @@ const Footer = () => {
     { name: "Sports", path: "" },
   ];
 
-  
   const terms = [
     { name: "Terms of Use", path: "" },
     { name: "|", path: "" },
@@ -36,8 +34,11 @@ const Footer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email) {
-        toast.success(`Email: ${email}`);
+    if (email.includes("@") && email.includes(".com")) {
+      toast.success(`${email} subscribed`);
+      setEmail("");
+    } else if (!email.includes("@") && !email.includes(".com")){
+      toast.error("Not  a valid email");
     } else {
       toast.error("Email cannot be empty!!");
     }
@@ -124,23 +125,31 @@ const Footer = () => {
         <div className="border-t-2 border-t-gray-300">
           <div className="linkContainer flex flex-wrap justify-around gap-x-[14rem] items-center py-5">
             <div className="logo flex gap-x-2 mb-5">
-              <Link to="/"><img src={logo} alt="logo" className="w-5 md:w-10" /></Link>
+              <Link to="/">
+                <img src={logo} alt="logo" className="w-5 md:w-10" />
+              </Link>
               <div>
-              <h1 className="text-black text-sm md:text-md">
-                <Link to="/">
-                Meta
-                <span className="text-black font-extrabold text-md md:text-xl">
-                  Blog
-                </span>
-                </Link>
-              </h1>
-                <p>© JS Template 2023. All Rights Reserved.</p>
+                <h1 className="text-black text-sm md:text-md">
+                  <Link to="/">
+                    Meta
+                    <span className="text-black font-extrabold text-md md:text-xl">
+                      Blog
+                    </span>
+                  </Link>
+                </h1>
+                <p>© Nnaji Benjamin 2023. All Rights Reserved.</p>
               </div>
             </div>
             <div className="terms">
               <ul>
                 {terms.map((term, index) => (
-                  <Link key={index} to={term.path} className="text-primary hover:text-badge px-2">{term.name}</Link>
+                  <Link
+                    key={index}
+                    to={term.path}
+                    className="text-primary hover:text-badge px-2"
+                  >
+                    {term.name}
+                  </Link>
                 ))}
               </ul>
             </div>
