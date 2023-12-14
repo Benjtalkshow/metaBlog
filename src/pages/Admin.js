@@ -106,7 +106,7 @@ const Admin = () => {
             type="text"
             value={file}
             onChange={(e) => setFile(e.target.value)}
-            className="outline-none border-primary p-2 mb-2 border-[1px] rounded focus:ring focus:border-badge w-full"
+            className="imageInput outline-none border-primary p-2 mb-2 border-[1px] rounded focus:ring focus:border-badge w-full"
           />
           <button
             type="submit"

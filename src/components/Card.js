@@ -14,6 +14,7 @@ const Card = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(9);
+  const [filter, setFilter] = useState(null); 
   const collectionRef = collection(db, "posts");
 
   useEffect(() => {
@@ -50,13 +51,17 @@ const Card = () => {
   // Slice the post array to get only the items to display
   const currentItems = post.slice(startIndex, endIndex);
 
+  const handleFilterChange = (option) => {
+    setFilter(option);
+  };
+
   return (
-    <section className="mb-40 flex justify-center items-center flex-col">
+    <section className="mb-10 flex justify-center items-center flex-col">
       <div className="flex justify-center mb-5 w-[90%]">
         <div className="w-full font-bold text-lg md:text-xl">
           <h1 className="">Latest News</h1>
         </div>
-        <FilterDropdown/>
+        <FilterDropdown onFilterChange={handleFilterChange} currentItems={currentItems} />
       </div>
       {isLoading ? (
         <>
@@ -66,7 +71,8 @@ const Card = () => {
         <>
           {post ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 justify-center w-[90%]">
-              {currentItems.reverse().map((post) => (
+              {currentItems
+                .filter((post) => filter === null || post.category === filter).reverse().map((post) => (
                 <Link to={`/post/${post.id}`} key={post.id}>
                   <div
                     className="card bg-white p-2 rounded-lg shadow-md border-2 border-gray-300"

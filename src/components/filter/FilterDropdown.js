@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
+const FilterDropdown = ({ onFilterChange, currentItems }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const categories = new Set(currentItems.map((item) => item.category));
+  const uniqueCategories = Array.from(categories);
 
-const FilterDropdown = ({ categories, onCategoryChange }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
-  
-    const options = ["Option 1", "Option 2", "Option 3"];
-  
-    const toggleDropdown = () => {
-      setIsOpen(!isOpen);
-    };
-  
-    const handleOptionClick = (option) => {
-      setSelectedOption(option);
-      setIsOpen(false);
-    };
-  
+
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (uniqueCategories) => {
+    setSelectedOption(uniqueCategories);
+    setIsOpen(false);
+    onFilterChange(uniqueCategories); 
+  };
 
   return (
-<div className="relative inline-block text-left">
+    <div className="relative inline-block text-left">
       <div>
         <button
           type="button"
@@ -29,7 +30,7 @@ const FilterDropdown = ({ categories, onCategoryChange }) => {
           aria-expanded="true"
           onClick={toggleDropdown}
         >
-          {selectedOption || "Categories"}
+          {selectedOption === null ? "Categories" : selectedOption}
           {isOpen ? (
             <HiChevronUp className="-mr-1 ml-2 h-5 w-5" />
           ) : (
@@ -46,9 +47,9 @@ const FilterDropdown = ({ categories, onCategoryChange }) => {
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            {options.map((option, index) => (
+            {uniqueCategories.map((option) => (
               <div
-                key={index}
+                key={option}
                 onClick={() => handleOptionClick(option)}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
                 role="menuitem"
@@ -60,7 +61,7 @@ const FilterDropdown = ({ categories, onCategoryChange }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default FilterDropdown;
