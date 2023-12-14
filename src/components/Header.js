@@ -88,7 +88,7 @@ const Header = () => {
           <ul className="flex gap-x-8 text-primary">
             <li>
               <NavLink to="/" className={activeLink}>
-                Blog
+                Home
               </NavLink>
             </li>
             <li>
@@ -170,7 +170,7 @@ const Header = () => {
           </div>
           <ul className="gap-y-8 text-primary flex flex-col mt-10">
             <li>
-              <NavLink to="/">Blog</NavLink>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <NavLink to="/author">Author</NavLink>
