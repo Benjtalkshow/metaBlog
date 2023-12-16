@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { FaSearch, FaBars } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
-import logo from "../assets/logoBlue.svg";
-import styles from "../styles/ActiveLink.module.css";
+import logo from "../../assets/logoBlue.svg";
+import styles from "../../styles/ActiveLink.module.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth } from "../../firebase/firebase";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../redux/slice/authSlice";
-import ShowOnLogin from "./hidelinks/hiddenLinks";
-import { PrivateLink } from "../privateroute/PrivateRoute";
+import {
+  REMOVE_ACTIVE_USER,
+  SET_ACTIVE_USER,
+} from "../../redux/slice/authSlice";
+import ShowOnLogin from "../hidelinks/hiddenLinks";
+import { PrivateLink } from "../../privateroute/PrivateRoute";
+import Search from "./Search";
 
 const Header = () => {
   const [hamburger, setHamburger] = useState(false);
@@ -118,14 +122,7 @@ const Header = () => {
           </ul>
         </nav>
         <div className="gap-x-8 items-center hidden md:flex">
-          <div className="input-holder bg-slate-100 flex items-center p-2 rounded-lg">
-            <input
-              type="text"
-              placeholder="Search"
-              className="outline-none bg-transparent"
-            />
-            <FaSearch size={16} className="text-primary" />
-          </div>
+          <Search />
         </div>
         {!hamburger ? (
           <FaBars
@@ -156,7 +153,7 @@ const Header = () => {
         transition-transform duration-300 ease-in-out shadow h-[100%] flex md:hidden flex-col items-center p-8 border-t-2
         absolute bg-white`}
         >
-          <div className="flex gap-x-8 items-center">
+          {/* <div className="flex gap-x-8 items-center">
             <div
               className="input-holder bg-slate-100 flex items-center p-2 rounded-lg w-48 md:w-64 overflow-hidden"
               onClick={stopPropagation}
@@ -167,7 +164,7 @@ const Header = () => {
                 className="outline-none bg-transparent w-48 md:w-64"
               />
             </div>
-          </div>
+          </div> */}
           <ul className="gap-y-8 text-primary flex flex-col mt-10">
             <li>
               <NavLink to="/">Home</NavLink>
