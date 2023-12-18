@@ -69,7 +69,7 @@ const Card = () => {
         </>
       ) : (
         <>
-          {post ? (
+          {post.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 justify-center w-[90%]">
               {currentItems
                 .filter((post) => filter === null || post.category === filter).reverse().map((post) => (
@@ -111,8 +111,8 @@ const Card = () => {
               ))}
             </div>
           ) : (
-            <div>
-              <p className="font-bold text-lg text-badge">No Post Available</p>
+            <div className="">
+              <p className="italic text-lg text-badge py-5 md:py-10">No Post Available</p>
             </div>
           )}
           <Pagination
