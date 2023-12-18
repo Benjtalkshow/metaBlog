@@ -32,9 +32,7 @@ const Header = () => {
       document.body.style.overflowY = "scroll";
     }
   };
-  const stopPropagation = (e) => {
-    e.stopPropagation();
-  };
+  
   // TO SET ACTIVE PAGE LINK AND SELECT STATE
   const activeLink = ({ isActive }) => (isActive ? `${styles.activeLink}` : "");
 
@@ -100,6 +98,11 @@ const Header = () => {
                 Author
               </NavLink>
             </li>
+            <li>
+              <Link>
+                Pages
+              </Link>
+            </li>
             <ShowOnLogin>
               <li>
                 <NavLink className={`text-badge`}>{`Hi, ${uName}`}</NavLink>
@@ -153,27 +156,12 @@ const Header = () => {
         transition-transform duration-300 ease-in-out shadow h-[100%] flex md:hidden flex-col items-center p-8 border-t-2
         absolute bg-white`}
         >
-          {/* <div className="flex gap-x-8 items-center">
-            <div
-              className="input-holder bg-slate-100 flex items-center p-2 rounded-lg w-48 md:w-64 overflow-hidden"
-              onClick={stopPropagation}
-            >
-              <input
-                type="text"
-                placeholder="Search"
-                className="outline-none bg-transparent w-48 md:w-64"
-              />
-            </div>
-          </div> */}
           <ul className="gap-y-8 text-primary flex flex-col mt-10">
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <NavLink to="/author">Author</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">Contact</NavLink>
             </li>
             <ShowOnLogin>
               <li>

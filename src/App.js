@@ -3,7 +3,6 @@ import "./App.css";
 import Blog from "./pages/Blog";
 import Posts from "./pages/Posts";
 import Author from "./pages/Author";
-import Contact from "./pages/Contact";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Reset from "./pages/Reset";
@@ -29,7 +28,6 @@ function App() {
           <Route path="/" element={<Blog />} />
           <Route path="/post/:postId" element={<Posts />} />
           <Route path="/author" element={<Author />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/reset" element={<Reset />} />
