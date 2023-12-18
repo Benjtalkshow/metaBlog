@@ -40,13 +40,13 @@ const Footer = () => {
     } else if (!email.includes("@") && !email.includes(".com")){
       toast.error("Not  a valid email");
     } else {
-      toast.error("Email cannot be empty!!");
+      toast.warning("Email cannot be empty!!");
     }
   };
 
   return (
     <footer>
-      <div className="bg-gray-100 py-10 px-3 flex flex-col">
+      <div className="bg-gray-100 py-10 px-2 flex flex-col">
         <div className="linkContainer flex flex-wrap gap-5 justify-start min-[230px]:justify-evenly mb-10">
           <div className="about">
             <h1 className="font-bold">About</h1>
@@ -61,15 +61,15 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row cursor-pointer hover:text-badge">
               <h1 className="font-bold mr-2">Email:</h1>
               <a
-                href="mailto:info@jstemplate.net"
+                href="mailto:chinedubenj@gmail.com"
                 className="text-primary font-normal"
               >
-                info@jstemplate.net
+                chinedubenj@gmail.com
               </a>
             </div>
             <div className="flex flex-col md:flex-row cursor-pointer hover:text-badge">
               <h1 className="font-bold mr-2">Phone:</h1>
-              <p className="text-primary font-normal">880 123 456 789</p>
+              <p className="text-primary font-normal">000 000 000 00</p>
             </div>
           </div>
           <div className="quickLinks">

@@ -75,7 +75,7 @@ const Card = () => {
                 .filter((post) => filter === null || post.category === filter).reverse().map((post) => (
                 <Link to={`/post/${post.id}`} key={post.id}>
                   <div
-                    className="card bg-white p-2 rounded-lg shadow-md border-2 border-gray-300"
+                    className="card bg-white p-2 shadow-md rounded-md"
                     data-aos="fade-up"
                   >
                     <img
